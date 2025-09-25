@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Books Exchange — Marketplace</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --bg-dark: #0a0d12;
+      --card: #2a2a40;
+      --muted-bg: #f9f9f9;
+      --accent: #2196F3;
+      --success: #4CAF50;
+      --danger: #f44336;
+      --gold: #FFC107;
+      --light: #fff;
+      --dark-text: #111;
+    }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: var(--bg-dark);
+      color: var(--light);
+      -webkit-font-smoothing:antialiased;
+    }
+
+    h1 { text-align:center; margin: 4px 0 2px; font-size: 22px; }
+    h2 { text-align:center; margin: 0 0 16px; font-size: 14px; color: #cfd6dc; }
+
+    #listings-section {
+      max-width: 980px;
+      margin: 12px auto;
+      background: transparent;
+    }
+
+    /* Controls */
+    #controls { display:flex; flex-direction:column; gap:10px; margin-bottom:10px; }
+    #searchRow { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+    #searchBar {
+      padding:10px;
+      width: 70%;
+      min-width: 260px;
+      max-width: 680px;
+      border-radius:8px;
+      border:1px solid #ccc;
+      box-sizing:border-box;
+    }
+    #searchButton {
+      padding:8px 12px;
+      border-radius:6px;
+      border:none;
+      background:var(--accent);
+      color:var(--light);
+      cursor:pointer;
+    }
+
+    #buttonRow { display:flex; gap:10px; justify-content:space-between; align-items:center; }
+    #buttonRow button {
+      padding:8px 12px;
+      border-radius:6px;
+      border:none;
+      cursor:pointer;
+      color:var(--light);
+      background:var(--accent);
+    }
+    #buttonRow .secondary { background: var(--success); }
+    #buttonRow .danger { background: var(--danger); }
+
+    /* Add listing form (hidden by default) */
+    #addListForm {
+      display:none;
+      background: var(--card);
+      padding:14px;
+      border-radius:8px;
+      margin-bottom: 12px;
+      color: var(--light);
+    }
+    #addListForm input[type="text"],
+    #addListForm input[type="number"],
+    #addListForm input[type="file"] {
+      width: 100%;
+      padding:8px;
+      margin:6px 0;
+      box-sizing:border-box;
+      border-radius:6px;
+      border:1px solid #999;
+      background: #fff;
+      color: var(--dark-text);
+    }
+    #addListForm .form-btn {
+      padding:8px 12px;
+      margin-top:8px;
+      border-radius:6px;
+      border:none;
+      cursor:pointer;
+      color:var(--light);
+    }
+
+    /* Boxes for listings */
+    #fake-lists-box, #listings {
+      border:1px solid #ccc;
+      border-radius:8px;
+      padding:10px;
+      background: var(--light);
+      color: var(--dark-text);
+      max-height: 420px;
+      overflow-y: auto;
+    }
+
+    .listing-item {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px;
+      margin:10px 0;
+      border-radius:8px;
+      background: #fff;
+      border:1px solid #ddd;
+    }
+    .listing-item .text {
+      flex:1;
+      min-width:0;
+    }
+    .listing-item img {
+      width:100px; height:100px; object-fit:cover; border-radius:6px;
+    }
+    .listing-item .btns { display:flex; flex-direction:column; gap:6px; }
+
+    .listing-item button {
+      padding:6px 10px;
+      border:none;
+      border-radius:6px;
+      cursor:pointer;
+      color:var(--light);
+    }
+
+    .fav-btn { background: var(--accent); }
+    .fav-btn.favourited { background: var(--gold); color: #000; }
+    .del-btn { background: var(--danger); }
+    .addcart-btn { background: var(--success); }
+
+    /* Show All Listings button */
+    .show-all-btn {
+      display:block;
+      margin: 10px auto;
+      padding:8px 12px;
+      border-radius:6px;
+      border:none;
+      background:var(--accent);
+      color:var(--light);
+      cursor:pointer;
+    }
+
+    /* small screens */
+    @media (max-width:640px) {
+      #searchBar { width: 100%; min-width: auto; }
+      #buttonRow { flex-direction: column; }
+      .listing-item { flex-direction: column; align-items:flex-start; }
+      .listing-item img { width:100%; height:auto; }
+      .listing-item .btns { flex-direction:row; }
+    }
+  </style>
+</head>
+<body>
+  <h1 id="mainHeading">BOOKS EXCHANGE</h1>
+  <h2 id="subHeading">MARKET PLACE:</h2>
+
+  <section id="listings-section">
+    <div id="controls">
+      <!-- Search row (static HTML) -->
+      <div id="searchRow">
+        <input id="searchBar" type="text" placeholder="Search listings...">
+        <button id="searchButton" type="button">Search</button>
+      </div>
+
+      <!-- Button row (Add, Cart, Logout) -->
+      <div id="buttonRow">
+        <button id="addButton" type="button">+ Add list</button>
+       <p></p>
+    <button id="favButton" type="button">Cart</button>
+          <p></p>
+          <button id="logoutButton" type="button">Log out</button>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Add listing form (kept in HTML, hidden by default) -->
+    <div id="addListForm" aria-hidden="true">
+      <h3 style="margin-top:0;color:#fff;">Add New Listing</h3>
+      <input id="titleInput" type="text" placeholder="Title" required>
+      <input id="authorInput" type="text" placeholder="Author" required>
+      <input id="priceInput" type="number" placeholder="Price" required>
+      <input id="contactInput" type="text" placeholder="Contact Number" required>
+      <input id="fileInput" type="file" accept="image/*">
+      <div style="margin-top:8px;">
+        <button id="submitListBtn" class="form-btn" style="background:var(--success)">Add Listing</button>
+        <button id="cancelListBtn" class="form-btn" style="background:var(--danger); margin-left:8px;">Cancel</button>
+      </div>
+    </div>
+
+    <!-- Fake listings container (static) -->
+    <div id="fake-lists-box" aria-live="polite" style="margin-bottom:12px;"></div>
+
+    <!-- User-added listings container (static) -->
+    <div id="listings" aria-live="polite"></div>
+  </section>
+
+  <script>
+    // Behaviour wiring only — all UI elements exist as real HTML above.
+    document.addEventListener("DOMContentLoaded", () => {
+      const mainHeading = document.getElementById("mainHeading");
+      const subHeading = document.getElementById("subHeading");
+      const listingsSection = document.getElementById("listings-section");
+      const listingsDiv = document.getElementById("listings");
+      const fakeListsBox = document.getElementById("fake-lists-box");
+
+      const searchInput = document.getElementById("searchBar");
+      const searchButton = document.getElementById("searchButton");
+
+      const addButton = document.getElementById("addButton");
+      const favButton = document.getElementById("favButton");
+      const logoutButton = document.getElementById("logoutButton");
+      const buttonRow = document.getElementById("buttonRow");
+      const searchRow = document.getElementById("searchRow");
+
+      const addListForm = document.getElementById("addListForm");
+      const titleInput = document.getElementById("titleInput");
+      const authorInput = document.getElementById("authorInput");
+      const priceInput = document.getElementById("priceInput");
+      const contactInput = document.getElementById("contactInput");
+      const fileInput = document.getElementById("fileInput");
+      const submitListBtn = document.getElementById("submitListBtn");
+      const cancelListBtn = document.getElementById("cancelListBtn");
+
+      let cartItems = [];
+      let viewingCart = false;
+
+    logoutButton.addEventListener("click", () => {
+      sessionStorage.removeItem("user_email");
+      window.location.href = "login.html";
+    
+    });
+    // AUTO-REDIRECT if already logged in
+    window.addEventListener("DOMContentLoaded", () => {
+      const loggedIn = sessionStorage.getItem("user_email");
+      if (loggedIn) {
+        loginContainer.style.display = "none";
+        listings.style.display = "block";
+      }
+    });
+
+      /* ---------- Add-list form toggling ---------- */
+      addButton.addEventListener("click", () => {
+        addListForm.style.display = addListForm.style.display === "block" ? "none" : "block";
+        addListForm.setAttribute("aria-hidden", addListForm.style.display !== "block");
+      });
+      cancelListBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        addListForm.style.display = "none";
+        addListForm.setAttribute("aria-hidden", "true");
+        resetAddForm();
+      });
+
+      function resetAddForm() {
+        titleInput.value = "";
+        authorInput.value = "";
+        priceInput.value = "";
+        contactInput.value = "";
+        fileInput.value = "";
+      }
+
+      /* ---------- Submit new user listing ---------- */
+      submitListBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        const title = titleInput.value.trim();
+        const author = authorInput.value.trim();
+        const price = priceInput.value.trim();
+        const contact = contactInput.value.trim();
+
+        if (!title || !author || !price || !contact) {
+          alert("Please fill in all fields.");
+          return;
+        }
+
+        // create listing element for user-added listings (goes into #listings)
+        const newListing = document.createElement("div");
+        newListing.className = "listing-item";
+
+        const textDiv = document.createElement("div");
+        textDiv.className = "text";
+        textDiv.innerHTML = `
+          <strong>Title:</strong> ${escapeHtml(title)}<br>
+          <strong>Author:</strong> ${escapeHtml(author)}<br>
+          <strong>Price:</strong> ${escapeHtml(price)}<br>
+          <strong>Contact Number:</strong> ${escapeHtml(contact)}
+        `;
+        newListing.appendChild(textDiv);
+
+        // image preview if provided
+        if (fileInput.files && fileInput.files[0]) {
+          const img = document.createElement("img");
+          const reader = new FileReader();
+          reader.onload = (ev) => { img.src = ev.target.result; };
+          reader.readAsDataURL(fileInput.files[0]);
+          newListing.appendChild(img);
+        }
+
+        // buttons column (favourite, delete)
+        const btnContainer = document.createElement("div");
+        btnContainer.className = "btns";
+
+        const favBtn = document.createElement("button");
+        favBtn.className = "fav-btn";
+        favBtn.textContent = "Favourite";
+        favBtn.addEventListener("click", () => {
+          const isFav = favBtn.classList.toggle("favourited");
+          if (isFav) favBtn.textContent = "Favourited"; else favBtn.textContent = "Favourite";
+          // visual change handled by CSS class
+        });
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "del-btn";
+        deleteBtn.textContent = "Delete";
+        deleteBtn.addEventListener("click", () => newListing.remove());
+
+        btnContainer.appendChild(favBtn);
+        btnContainer.appendChild(deleteBtn);
+        newListing.appendChild(btnContainer);
+
+        listingsDiv.appendChild(newListing);
+
+        // hide & reset form
+        addListForm.style.display = "none";
+        addListForm.setAttribute("aria-hidden", "true");
+        resetAddForm();
+        filterListings();
+      });
+
+      /* ---------- Search / Filter ---------- */
+      function filterListings() {
+        const term = (searchInput.value || "").toLowerCase().trim();
+        // fake listings
+        fakeListsBox.querySelectorAll(".listing-item").forEach(item => {
+          const text = item.textContent.toLowerCase();
+          item.style.display = text.includes(term) ? "" : "none";
+        });
+        // user listings
+        listingsDiv.querySelectorAll(".listing-item").forEach(item => {
+          const text = item.textContent.toLowerCase();
+          item.style.display = text.includes(term) ? "" : "none";
+        });
+      }
+      searchInput.addEventListener("input", filterListings);
+      searchButton.addEventListener("click", filterListings);
+
+      /* ---------- Fake listings + add-to-cart ---------- */
+      function addFakeListing(title, author, price, contact, imgUrl) {
+        const div = document.createElement("div");
+        div.className = "listing-item";
+
+        const textDiv = document.createElement("div");
+        textDiv.className = "text";
+        textDiv.innerHTML = `
+          <strong>Title:</strong> ${escapeHtml(title)}<br>
+          <strong>Author:</strong> ${escapeHtml(author)}<br>
+          <strong>Price:</strong> ${escapeHtml(price)}<br>
+          <strong>Contact Number:</strong> ${escapeHtml(contact)}
+        `;
+        div.appendChild(textDiv);
+
+        const img = document.createElement("img");
+        img.src = imgUrl;
+        img.alt = title;
+        div.appendChild(img);
+
+        const addBtn = document.createElement("button");
+        addBtn.className = "addcart-btn";
+        addBtn.textContent = "+";
+        addBtn.title = "Add to cart";
+        addBtn.addEventListener("click", () => {
+          cartItems.push({ title, author, price, contact, imgUrl });
+          alert(`${title} added to cart!`);
+        });
+        div.appendChild(addBtn);
+
+        fakeListsBox.appendChild(div);
+      }
+
+      function renderFakeListings() {
+        fakeListsBox.innerHTML = "";
+        addFakeListing("MAMBA", "PIETER HENNINGS", "R249.99", "0846074567", "https://www.mzansibooks.co.za/cdn/shop/files/FrontCoverMamba.jpg?v=1738934359");
+        addFakeListing("LION KING", "AMANDA JEFF", "R299.99", "0601234567", "https://www.picclickimg.com/aJwAAOSwASljfxrf/The-Lion-King-2-NM-Marvel-Comic.webp");
+        addFakeListing("MATHEMATICS", "JACKOB JAMES", "R749.99", "0601234567", "https://images.rawpixel.com/image_800/cHJpdmF0ZS90ZW1wbGF0ZXMvZmlsZXMvY3JlYXRlX3Rvb2wvMjAyNC0wMi8wMWhxN2RtMmFiNGV3YTFkYzE2YThiNmdzOS5qcGc.jpg");
+        addFakeListing("PHYSICS", "CINDY SMITH", "R699.99", "0602345678", "https://www.mswordcoverpages.com/wp-content/uploads/2023/05/Physics-book-cover-page-1-CRC.png");
+        addFakeListing("CHEMISTRY", "DANIEL ARK", "R699.99", "0603456789", "https://www.mswordcoverpages.com/wp-content/uploads/2023/04/Chemistry-book-cover-page-1-CRC.png");
+        addFakeListing("3in1 Java,Python&C++", "HATEL BROWN", "R400", "0604567890", "https://m.media-amazon.com/images/I/81fROgyLB+L._SL1500_.jpg");
+        addFakeListing("THE SKITTERING AND OTHER TALES", "TONY R TUCKER", "R399.99", "0601234567", "https://miblart.com/wp-content/uploads/2020/10/2LTd4fOY.jpeg");
+        addFakeListing("THE SPLENDOR OF FEAR", "AMBROSE IBSEN", "R249.99", "0601234567", "https://tse2.mm.bing.net/th/id/OIP.gxmYqehJVo_0CBpxpzhfqgHaL2?rs=1&pid=ImgDetMain&o=7&rm=3");
+        addFakeListing("THE DEVIL'S CAT", "WILLIAM W. JOHNSTONE", "R349.99", "0601234567", "https://fionajaydemedia.com/wp-content/uploads/2015/07/TheDevilsCat1.jpg");
+        addFakeListing("STAIRWAY TO HELL", "RICHARD HUGHES", "R400.00", "0601234567", "https://i.pinimg.com/736x/fe/fc/16/fefc1672592a034be600e3f75810ab66.jpg");
+        addFakeListing("ME BEFORE YOU", "JOJO MOYES", "R279.99", "0748439674", "https://image-prod.iol.co.za/resize/610x61000/?source=https://xlibris.public.prod.oc.inl.infomaker.io:8443/opencontent/objects/c15daf2f-dc9a-5601-bb45-38d1788fca75&operation=CROP&offset=0x0&resize=600x900");
+        addFakeListing("SUDDENLY SERIOUS", "SARAH JACKSON", "R499.99", "0831234567", "https://marketplace.canva.com/EADaovMnGQ4/1/0/1003w/canva-romance-love-couples-grayscale-kindle-book-cover-3Jyzky61_vo.jpg");
+        addFakeListing("WALK INTO THE SHADOW", "ESTELLE DARCY", "R399.99", "0601234567", "https://marketplace.canva.com/EAFfSnGl7II/2/0/1003w/canva-elegant-dark-woods-fantasy-photo-book-cover-vAt8PH1CmqQ.jpg");
+      }
+
+      /* ---------- Cart view (show only cart items) ---------- */
+      favButton.addEventListener("click", () => {
+        viewingCart = true;
+        mainHeading.textContent = "CART";
+        subHeading.textContent = "";
+
+        searchRow.style.display = "none";
+        buttonRow.style.display = "none";
+
+        fakeListsBox.innerHTML = "";
+
+        if (cartItems.length === 0) {
+          fakeListsBox.innerHTML = "<p>No items in cart.</p>";
+        } else {
+          cartItems.forEach((item, index) => {
+            const newListing = document.createElement("div");
+            newListing.className = "listing-item";
+
+            const textDiv = document.createElement("div");
+            textDiv.className = "text";
+            textDiv.innerHTML = `
+              <strong>Title:</strong> ${escapeHtml(item.title)}<br>
+              <strong>Author:</strong> ${escapeHtml(item.author)}<br>
+              <strong>Price:</strong> ${escapeHtml(item.price)}<br>
+              <strong>Contact Number:</strong> ${escapeHtml(item.contact)}
+            `;
+            newListing.appendChild(textDiv);
+
+            const img = document.createElement("img");
+            img.src = item.imgUrl;
+            newListing.appendChild(img);
+
+            const delBtn = document.createElement("button");
+            delBtn.className = "del-btn";
+            delBtn.textContent = "x";
+            delBtn.addEventListener("click", () => {
+              cartItems.splice(index, 1);
+              favButton.click(); // re-render cart
+            });
+
+            newListing.appendChild(delBtn);
+            fakeListsBox.appendChild(newListing);
+          });
+        }
+
+        // Show All Listings button
+        const showAllBtn = document.createElement("button");
+        showAllBtn.className = "show-all-btn";
+        showAllBtn.textContent = "Show All Listings";
+        showAllBtn.addEventListener("click", () => {
+          viewingCart = false;
+          mainHeading.textContent = "BOOKS EXCHANGE";
+          subHeading.textContent = "MARKET PLACE:";
+          searchRow.style.display = "";
+          buttonRow.style.display = "";
+          renderFakeListings();
+        });
+        fakeListsBox.appendChild(showAllBtn);
+      });
+
+      /* ---------- Logout button (clears cart + restores view) ---------- */
+      logoutButton.addEventListener("click", () => {
+        cartItems = [];
+        viewingCart = false;
+        mainHeading.textContent = "BOOKS EXCHANGE";
+        subHeading.textContent = "MARKET PLACE:";
+        searchRow.style.display = "";
+        buttonRow.style.display = "";
+        renderFakeListings();
+      });
+
+      /* ---------- Utility & init ---------- */
+      function escapeHtml(s) {
+        if (!s) return "";
+        return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]));
+      }
+
+      // initial population
+      renderFakeListings();
+
+
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Register</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="login-container">
+  <h2 style="color: black; text-align:center;  font-weight:bold " >Register</h2>
+  <p></p>
+  <form id="registerForm">
+    <input type="email" id="regEmail" placeholder="Enter email" required>
+    <p></p>
+    <input type="password" id="regPassword" placeholder="Enter password" required>
+    <p></p>
+    <button type="submit">Register</button>
+  </form>
+  <p id="message"></p>
+  <p style="color: black; text-align:center;  font-weight:bold " >Already have an account? <a href="login.html">Login here</a></p>
+</div>
+  <script>
+    const registerForm = document.getElementById("registerForm");
+    const regEmailInput = document.getElementById("regEmail");
+    const regPassInput = document.getElementById("regPassword");
+    const message = document.getElementById("message");
+
+    registerForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const email = regEmailInput.value.trim().toLowerCase();
+      const password = regPassInput.value.trim();
+
+      if (!email || !password) {
+        message.textContent = "Please fill in all fields.";
+        return;
+      }
+
+      let users = JSON.parse(localStorage.getItem("users")) || [];
+
+      if (users.find(u => u.email === email)) {
+        message.textContent = "User already exists. Please log in.";
+        return;
+      }
+
+      users.push({ email, password });
+      localStorage.setItem("users", JSON.stringify(users));
+
+      message.style.color = "green";
+      message.textContent = "Registration successful! You can now login.";
+      registerForm.reset();
+    });
+  </script>
+</body>
+</html>

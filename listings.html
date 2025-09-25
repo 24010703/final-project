@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Listings</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="listingsContent"></div>
+  <button id="logoutBtn">Logout</button>
+
+  <script>
+    const welcomeH2 = document.getElementById("welcome");
+    const loginContainer = document.querySelector(".login-container");
+    const listingsContent = document.getElementById("listingsContent");
+    const logoutBtn = document.getElementById("logoutBtn");
+
+    const loggedInEmail = sessionStorage.getItem("user_email");
+    if (!loggedInEmail) {
+      // not logged in → go back to login
+      window.location.href = "login.html";
+    } else {
+
+         welcomeH2.textContent = "Welcome " + loggedInEmail;
+      listingsContent.innerHTML = `
+        <p>📚 Intro to Linear Algebra - R120</p>
+        <p>📖 Discrete Math Notes - R50</p>
+        <p>💻 React Crash Course PDF - Free</p>
+ <p class="subtitle">Automated Pre-Payment & Security Monitoring</p> 
+      `;
+
+    }
+
+    logoutBtn.addEventListener("click", () => {
+      sessionStorage.removeItem("user_email");
+      window.location.href = "login.html";
+    });
+  </script>
+<script src="app.js"></script>
+</body>
+  <div id="root"></div>
+</html>
