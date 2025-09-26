@@ -39,7 +39,7 @@
     #searchRow { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
     #searchBar {
       padding:10px;
-      width: 70%;
+      width: 80%;
       min-width: 260px;
       max-width: 680px;
       border-radius:8px;
@@ -55,7 +55,7 @@
       cursor:pointer;
     }
 
-    #buttonRow { display:flex; gap:10px; justify-content:space-between; align-items:center; }
+    #buttonRow { display:flex; gap:10px; justify-content: center ; align-items:center; }
     #buttonRow button {
       padding:8px 12px;
       border-radius:6px;
@@ -124,7 +124,7 @@
       min-width:0;
     }
     .listing-item img {
-      width:100px; height:100px; object-fit:cover; border-radius:6px;
+      width:90px; height:90px; object-fit:cover; border-radius:6px;
     }
     .listing-item .btns { display:flex; flex-direction:column; gap:6px; }
 
@@ -155,10 +155,21 @@
 
     /* small screens */
     @media (max-width:640px) {
-      #searchBar { width: 100%; min-width: auto; }
-      #buttonRow { flex-direction: column; }
-      .listing-item { flex-direction: column; align-items:flex-start; }
-      .listing-item img { width:100%; height:auto; }
+      #searchBar { width: 80%; min-width: 260px; }
+      #buttonRow { flex-direction: row; }
+      .listing-item { 
+        
+         display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:10px;
+      margin:10px 0;
+      border-radius:8px;
+      background: #fff;
+      border:1px solid #ddd;
+     }
+      .listing-item img { width:50%; height:50; }
       .listing-item .btns { flex-direction:row; }
     }
   </style>
