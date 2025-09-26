@@ -88,6 +88,14 @@
       background: #fff;
       color: var(--dark-text);
     }
+      #yourlistingsForm .form-btn {
+      padding:8px 12px;
+      margin-top:8px;
+      border-radius:6px;
+      border:none;
+      cursor:pointer;
+      color:var(--light);
+    }
     #addListForm .form-btn {
       padding:8px 12px;
       margin-top:8px;
@@ -158,7 +166,6 @@
       #searchBar { width: 80%; min-width: 260px; }
       #buttonRow { flex-direction: row; }
       .listing-item { 
-        
          display:flex;
       align-items:center;
       justify-content:space-between;
@@ -169,7 +176,10 @@
       background: #fff;
       border:1px solid #ddd;
      }
-      .listing-item img { width:50%; height:50; }
+     .listing-item .text {
+      flex:1;
+      min-width:0;}
+      .listing-item img { width:50%; height:80; }
       .listing-item .btns { flex-direction:row; }
     }
   </style>
@@ -191,6 +201,8 @@
         <button id="addButton" type="button">+ Add list</button>
        <p></p>
     <button id="favButton" type="button">Cart</button>
+    <p></p>
+    <button id="yourButton" type="button">your listings</button>
           <p></p>
           <button id="logoutButton" type="button">Log out</button>
         </div>
@@ -216,7 +228,10 @@
     <div id="fake-lists-box" aria-live="polite" style="margin-bottom:12px;"></div>
 
     <!-- User-added listings container (static) -->
-    <div id="listings" aria-live="polite"></div>
+    <div id="listings" aria-live="polite">
+      <p>YOUR LISTINGS:</p>
+    </div>
+
   </section>
 
   <script>
@@ -233,6 +248,7 @@
 
       const addButton = document.getElementById("addButton");
       const favButton = document.getElementById("favButton");
+      const yourButton = document.getElementById("yourButton");
       const logoutButton = document.getElementById("logoutButton");
       const buttonRow = document.getElementById("buttonRow");
       const searchRow = document.getElementById("searchRow");
@@ -245,9 +261,14 @@
       const fileInput = document.getElementById("fileInput");
       const submitListBtn = document.getElementById("submitListBtn");
       const cancelListBtn = document.getElementById("cancelListBtn");
+      const yourlistingsForm = document.getElementById("yourlistingsForm"); 
 
       let cartItems = [];
       let viewingCart = false;
+      
+      yourButton.addEventListener("click", () => {
+      window.location.href = "yourlistings.html";
+      })
 
     logoutButton.addEventListener("click", () => {
       sessionStorage.removeItem("user_email");
@@ -477,6 +498,9 @@
         fakeListsBox.appendChild(showAllBtn);
       });
 
+
+
+
       /* ---------- Logout button (clears cart + restores view) ---------- */
       logoutButton.addEventListener("click", () => {
         cartItems = [];
@@ -498,7 +522,9 @@
       renderFakeListings();
 
 
-    });
+      });
+  
   </script>
 </body>
 </html>
+    

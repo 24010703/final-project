@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Listings — Marketplace</title>
+  <style>
+    .back-btn {
+  background:#6b7280;
+  color:#fff;
+  text-decoration:none;
+  padding:10px 12px;
+  border-radius:10px;
+  font-weight:600;
+}
+    :root{--bg:#f5f7fb;--card:#ffffff;--accent:#2563eb;--muted:#6b7280}
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; margin:0; background:var(--bg); color:#111}
+    .container{max-width:1100px;margin:28px auto;padding:20px}
+    header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    h1{margin:0;font-size:1.4rem}
+    .grid{display:grid;grid-template-columns:1fr 420px;gap:18px}
+    form{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    label{display:block;font-size:13px;color:var(--muted);margin-top:8px}
+    input[type=text], input[type=number], textarea, select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ee;margin-top:6px;font-size:14px}
+    textarea{min-height:84px;resize:vertical}
+    .row{display:flex;gap:8px}
+    .small{flex:1}
+    button{background:var(--accent);color:#fff;padding:10px 12px;border-radius:10px;border:none;font-weight:600;cursor:pointer;margin-top:12px}
+    .listings{background:transparent;padding:0}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:12px}
+    .card{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.04);display:flex;flex-direction:column}
+    .thumb{height:140px;border-radius:8px;object-fit:cover;background:#efefef}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+    .title{font-weight:700}
+    .price{color:var(--accent);font-weight:700}
+    .muted{color:var(--muted);font-size:13px}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+    .tag{background:#eef2ff;color:#3730a3;padding:4px 8px;border-radius:999px;font-size:12px}
+    .card-buttons{display:flex;gap:8px;margin-top:10px}
+    .btn-ghost{background:transparent;border:1px solid #e6e9ee;padding:8px;border-radius:8px;cursor:pointer}
+    .search-bar{display:flex;gap:8px;margin-bottom:12px}
+    .actions{display:flex;gap:8px;align-items:center}
+    .empty{padding:28px;text-align:center;color:var(--muted)}
+    .image-preview{display:block;width:100%;height:140px;border-radius:8px;background:#fafafa;border:1px dashed #e6e9ee;object-fit:cover}
+    @media (max-width:880px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+  <header>
+  <h1></h1>
+  <a href="market.html" class="back-btn">← Back to Home</a>
+</header>
+<body>
+  <!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Your Listings — Marketplace</title>
+  <style>
+    :root{--bg:#f5f7fb;--card:#ffffff;--accent:#2563eb;--muted:#6b7280}
+    body{font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; margin:0; background:var(--bg); color:#111}
+    .container{max-width:1100px;margin:28px auto;padding:20px}
+    header{display:flex;gap:16px;align-items:center;margin-bottom:18px}
+    h1{margin:0;font-size:1.4rem}
+    .grid{display:grid;grid-template-columns:1fr 420px;gap:18px}
+    form{background:var(--card);padding:16px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.06)}
+    label{display:block;font-size:13px;color:var(--muted);margin-top:8px}
+    input[type=text], input[type=number], textarea, select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6e9ee;margin-top:6px;font-size:14px}
+    textarea{min-height:84px;resize:vertical}
+    .row{display:flex;gap:8px}
+    .small{flex:1}
+    button{background:var(--accent);color:#fff;padding:10px 12px;border-radius:10px;border:none;font-weight:600;cursor:pointer;margin-top:12px}
+    .listings{background:transparent;padding:0}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:12px}
+    .card{background:var(--card);padding:12px;border-radius:12px;box-shadow:0 6px 18px rgba(15,23,42,0.04);display:flex;flex-direction:column}
+    .thumb{height:140px;border-radius:8px;object-fit:cover;background:#efefef}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+    .title{font-weight:700}
+    .price{color:var(--accent);font-weight:700}
+    .muted{color:var(--muted);font-size:13px}
+    .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+    .tag{background:#eef2ff;color:#3730a3;padding:4px 8px;border-radius:999px;font-size:12px}
+    .card-buttons{display:flex;gap:8px;margin-top:10px}
+    .btn-ghost{background:transparent;border:1px solid #e6e9ee;padding:8px;border-radius:8px;cursor:pointer}
+    .search-bar{display:flex;gap:8px;margin-bottom:12px}
+    .actions{display:flex;gap:8px;align-items:center}
+    .empty{padding:28px;text-align:center;color:var(--muted)}
+    .image-preview{display:block;width:100%;height:140px;border-radius:8px;background:#fafafa;border:1px dashed #e6e9ee;object-fit:cover}
+    @media (max-width:880px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Your Listings</h1>
+      <div class="muted">Add a listing using the form and it will appear here. Listings are saved locally (localStorage).</div>
+    </header>
+
+    <div class="grid">
+      <!-- Form -->
+      <form id="listingForm">
+        <h2 style="margin-top:0">Add / Edit Listing</h2>
+        <input type="hidden" id="listingId">
+        <label>Title</label>
+        <input id="title" type="text" placeholder="e.g. Used Calculus Textbook, 3rd ed" required>
+
+        <div class="row" style="margin-top:6px">
+          <div class="small">
+            <label>Price (ZAR)</label>
+            <input id="price" type="number" min="0" placeholder="e.g. 250">
+          </div>
+          <div class="small">
+            <label>Condition</label>
+            <select id="condition">
+              <option>New</option>
+              <option>Like new</option>
+              <option>Good</option>
+              <option>Fair</option>
+              <option>For parts</option>
+            </select>
+          </div>
+        </div>
+
+        <label>Category</label>
+        <input id="category" type="text" placeholder="e.g. Books, Electronics, Furniture">
+
+        <label>Description</label>
+        <textarea id="description" placeholder="Write a short description..."></textarea>
+
+        <label>Image URL (optional)</label>
+        <input id="imageUrl" type="text" placeholder="https://...jpg">
+        <img id="preview" class="image-preview" alt="preview" style="display:none;margin-top:8px">
+
+        <label>Location</label>
+        <input id="location" type="text" placeholder="City, Province">
+
+        <label>Contact (phone or email)</label>
+        <input id="contact" type="text" placeholder="e.g. +27 82 000 0000 or email@example.com">
+
+        <label>Tags (comma separated)</label>
+        <input id="tags" type="text" placeholder="e.g. calculus, textbook, university">
+
+        <div style="display:flex;gap:8px;align-items:center">
+          <button id="saveBtn" type="submit">Save Listing</button>
+          <button id="resetBtn" type="button" class="btn-ghost">Reset Form</button>
+        </div>
+
+        <div style="margin-top:10px;color:var(--muted);font-size:13px">
+          Tip: images from public URLs work best. Listings persist in your browser until you clear them.
+        </div>
+      </form>
+
+      <!-- Listings & Controls -->
+      <div>
+        <div class="actions">
+          <input id="search" type="text" placeholder="Search title, category, tags..." style="padding:8px;border-radius:8px;border:1px solid #e6e9ee;flex:1">
+          <button id="clearAll" class="btn-ghost" type="button">Clear All</button>
+          <button id="exportCsv" class="btn-ghost" type="button">Export CSV</button>
+        </div>
+
+        <div id="listingsContainer" class="listings">
+          <div id="emptyState" class="empty">No listings yet — add one on the left.</div>
+          <div id="cards" class="cards"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // JS: Listing manager with localStorage
+    const FORM = document.getElementById('listingForm');
+    const titleEl = document.getElementById('title');
+    const priceEl = document.getElementById('price');
+    const descriptionEl = document.getElementById('description');
+    const categoryEl = document.getElementById('category');
+    const imageUrlEl = document.getElementById('imageUrl');
+    const preview = document.getElementById('preview');
+    const locationEl = document.getElementById('location');
+    const contactEl = document.getElementById('contact');
+    const tagsEl = document.getElementById('tags');
+    const conditionEl = document.getElementById('condition');
+    const listingIdEl = document.getElementById('listingId');
+
+    const cards = document.getElementById('cards');
+    const emptyState = document.getElementById('emptyState');
+    const searchEl = document.getElementById('search');
+    const clearAllBtn = document.getElementById('clearAll');
+    const exportCsvBtn = document.getElementById('exportCsv');
+    const resetBtn = document.getElementById('resetBtn');
+
+    const STORAGE_KEY = 'my_marketplace_listings_v1';
+
+    function uid() { return 'id-' + Math.random().toString(36).slice(2,9); }
+
+    function loadListings(){
+      try{
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : [];
+      }catch(e){return []}
+    }
+    function saveListings(list){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(list));
+    }
+
+    function render(){
+      const q = searchEl.value.trim().toLowerCase();
+      const list = loadListings();
+      cards.innerHTML = '';
+      const filtered = list.filter(l => {
+        if(!q) return true;
+        return (l.title + ' ' + l.category + ' ' + (l.tags||'') + ' ' + (l.description||'')).toLowerCase().includes(q);
+      });
+      if(filtered.length === 0){ emptyState.style.display = 'block'; return; } else { emptyState.style.display = 'none'; }
+
+      filtered.forEach(item => {
+        const card = document.createElement('div'); card.className = 'card';
+        const img = document.createElement('img'); img.className = 'thumb';
+        img.src = item.imageUrl || 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300"><rect width="100%" height="100%" fill="%23f3f4f6"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" fill="%239ca3af" font-size="18">No image</text></svg>';
+        img.alt = item.title;
+        card.appendChild(img);
+
+        const meta = document.createElement('div'); meta.className = 'meta';
+        const left = document.createElement('div');
+        const t = document.createElement('div'); t.className = 'title'; t.textContent = item.title;
+        const sub = document.createElement('div'); sub.className = 'muted'; sub.textContent = item.category + ' • ' + item.condition;
+        left.appendChild(t); left.appendChild(sub);
+        const right = document.createElement('div'); right.className = 'price'; right.textContent = item.price ? 'R ' + item.price : 'Free';
+        meta.appendChild(left); meta.appendChild(right);
+        card.appendChild(meta);
+
+        if(item.tags){
+          const tagWrap = document.createElement('div'); tagWrap.className = 'tags';
+          item.tags.split(',').map(s=>s.trim()).filter(Boolean).slice(0,6).forEach(tag => {
+            const tEl = document.createElement('div'); tEl.className='tag'; tEl.textContent = tag; tagWrap.appendChild(tEl);
+          });
+          card.appendChild(tagWrap);
+        }
+
+        const desc = document.createElement('div'); desc.style.marginTop='8px'; desc.textContent = item.description || '';
+        card.appendChild(desc);
+
+        const info = document.createElement('div'); info.className='muted'; info.style.marginTop='8px'; info.textContent = (item.location? item.location + ' • ' : '') + (item.contact || '');
+        card.appendChild(info);
+
+        const btnRow = document.createElement('div'); btnRow.className='card-buttons';
+        const editBtn = document.createElement('button'); editBtn.className='btn-ghost'; editBtn.textContent='Edit';
+        editBtn.onclick = () => populateFormForEdit(item.id);
+        const delBtn = document.createElement('button'); delBtn.className='btn-ghost'; delBtn.textContent='Delete';
+        delBtn.onclick = () => { if(confirm('Delete this listing?')) deleteListing(item.id); };
+        btnRow.appendChild(editBtn); btnRow.appendChild(delBtn);
+        card.appendChild(btnRow);
+
+        cards.appendChild(card);
+      });
+    }
+
+    function populateFormForEdit(id){
+      const list = loadListings();
+      const item = list.find(i=>i.id===id); if(!item) return;
+      listingIdEl.value = item.id;
+      titleEl.value = item.title;
+      priceEl.value = item.price;
+      descriptionEl.value = item.description;
+      categoryEl.value = item.category;
+      imageUrlEl.value = item.imageUrl;
+      preview.style.display = item.imageUrl ? 'block' : 'none';
+      preview.src = item.imageUrl || '';
+      locationEl.value = item.location;
+      contactEl.value = item.contact;
+      tagsEl.value = item.tags;
+      conditionEl.value = item.condition || 'Good';
+      window.scrollTo({top:0,behavior:'smooth'});
+    }
+
+    function deleteListing(id){
+      const list = loadListings().filter(x=>x.id!==id);
+      saveListings(list); render();
+    }
+
+    FORM.addEventListener('submit', e => {
+      e.preventDefault();
+      const list = loadListings();
+      const id = listingIdEl.value || uid();
+      const payload = {
+        id,
+        title: titleEl.value.trim() || 'Untitled',
+        price: priceEl.value ? Number(priceEl.value) : null,
+        description: descriptionEl.value.trim(),
+        category: categoryEl.value.trim(),
+        imageUrl: imageUrlEl.value.trim(),
+        location: locationEl.value.trim(),
+        contact: contactEl.value.trim(),
+        tags: tagsEl.value.trim(),
+        condition: conditionEl.value
+      };
+      const existingIndex = list.findIndex(i=>i.id===id);
+      if(existingIndex>=0){ list[existingIndex] = payload; } else { list.unshift(payload); }
+      saveListings(list);
+      FORM.reset(); preview.style.display='none'; listingIdEl.value=''; render();
+    });
+
+    imageUrlEl.addEventListener('input', () => {
+      const v = imageUrlEl.value.trim();
+      if(!v){ preview.style.display='none'; preview.src=''; return; }
+      preview.style.display='block'; preview.src=v;
+      preview.onerror = () => { preview.style.display='none'; };
+    });
+
+    searchEl.addEventListener('input', render);
+
+    clearAllBtn.addEventListener('click', () => {
+      if(!confirm('Clear all listings from localStorage?')) return;
+      localStorage.removeItem(STORAGE_KEY); render();
+    });
+
+    resetBtn.addEventListener('click', () => { FORM.reset(); listingIdEl.value=''; preview.style.display='none'; });
+
+    function exportCsv(){
+      const list = loadListings();
+      if(!list.length){ alert('No listings to export'); return; }
+      const headers = ['id','title','price','condition','category','description','imageUrl','location','contact','tags'];
+      const rows = list.map(l=>headers.map(h=>JSON.stringify(l[h] ?? '')).join(','));
+      const csv = [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([csv], {type:'text/csv'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = 'listings.csv'; a.click(); URL.revokeObjectURL(url);
+    }
+    exportCsvBtn.addEventListener('click', exportCsv);
+
+    // initial render
+    render();
+
+  
+
+        // Show All Listings button
+        const showAllBtn = document.createElement("button");
+        showAllBtn.className = "show-all-btn";
+        showAllBtn.textContent = "Show All Listings";
+        showAllBtn.addEventListener("click", () => {
+          viewingCart = false;
+          mainHeading.textContent = "BOOKS EXCHANGE";
+          subHeading.textContent = "MARKET PLACE:";
+          searchRow.style.display = "";
+          buttonRow.style.display = "";
+          renderFakeListings();
+        });
+        fakeListsBox.appendChild(showAllBtn);
+      
+
+</script>
+</body>
+</html>
